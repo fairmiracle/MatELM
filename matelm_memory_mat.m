@@ -25,46 +25,21 @@ function [TrainingTime, TestingTime, TrainingAccuracy, TestingAccuracy] = matelm
 % neurons; neuron 5 has the highest output means input belongs to 5-th class
 
 %
-    %%%%    Original Authors:    MR QIN-YU ZHU AND DR GUANG-BIN HUANG
-    %%%%    NANYANG TECHNOLOGICAL UNIVERSITY, SINGAPORE
+    %%%%    Original Authors:    MR QIN-YU ZHU AND DR GUANG-BIN HUANG NANYANG TECHNOLOGICAL UNIVERSITY, SINGAPORE
+	
     %%%%    Refer to Bo Jia, Dong Li, Zhisong Pan, and Guyu Hu, " Two-dimensional Extreme Learning Machine," submitted to MPE, 2014
 
 %%%%%%%%%%% Macro definition
 REGRESSION=0;
 CLASSIFIER=1;
 
-%%%%%%%%%%% Load training dataset
-%train_data=load(TrainingData_File);
-% if size(Y_train,1)>size(Y_train,2)
-%     T=Y_train';
-%     P=X_train';
-%     TV.T=Y_test';
-%     TV.P=X_test';
-% else
-    T=Y_train;
 
-    TV.T=Y_test;
-
-%end
-
-% if normalize == 1
-%     [P,PS] = mapminmax(P);
-%     [TV.P,PS] = mapminmax(TV.P);
-% end
-% T=train_data(:,1)';
-% P=train_data(:,2:size(train_data,2))';
-% clear train_data;                                   %   Release raw training data array
-% 
-% %%%%%%%%%%% Load testing dataset
-% %test_data=load(TestingData_File);
-% TV.T=test_data(:,1)';
-% TV.P=test_data(:,2:size(test_data,2))';
-% clear test_data;                                    %   Release raw testing data array
+T=Y_train;
+TV.T=Y_test;
 
 NumberofTrainingData=size(X_train,1);
 NumberofTestingData=size(X_test,1);
 
-%NumberofInputNeurons=size(P,1);
 
 if Elm_Type~=REGRESSION
     %%%%%%%%%%%% Preprocessing the data of classification
@@ -109,24 +84,15 @@ end                                                 %   end if of Elm_Type
 
 %%%%%%%%%%% Calculate weights & biases
 
-
 %%%%%%%%%%% Random generate input weights InputWeight (w_i) and biases BiasofHiddenNeurons (b_i) of hidden neurons
-%InputWeight=rand(NumberofHiddenNeurons,NumberofInputNeurons)*2-1;
 U=rand(NumberofHiddenNeurons,d1)*2-1;
 V=rand(NumberofHiddenNeurons,d2)*2-1;
 BiasofHiddenNeurons=rand(NumberofHiddenNeurons,1);
 
 tempH = zeros(NumberofHiddenNeurons, NumberofTrainingData);
-% for i = 1:NumberofTrainingData
-%     for j = 1:NumberofHiddenNeurons
-%         tempH(j,i) = U(j,:)*reshape(P(:,i),d1,d2)*V(j,:)';
-%     end
-% end
 for i = 1:NumberofTrainingData
         tempH(:,i) =diag(U*X_train{i,1}*V');
 end
-
-%tempH=InputWeight*P;
 
 
 
@@ -182,14 +148,7 @@ end
 clear H;
 
 %%%%%%%%%%% Calculate the output of testing input
-
-%tempH_test=InputWeight*TV.P;
 tempH_test = zeros(NumberofHiddenNeurons, NumberofTestingData);
-% for i = 1:NumberofTestingData
-%     for j = 1:NumberofHiddenNeurons
-%         tempH_test(j,i) = U(j,:)*reshape(TV.P(:,i),d1,d2)*V(j,:)';
-%     end
-% end
 for i = 1:NumberofTestingData
         tempH_test(:,i) = diag(U*X_test{i,1}*V');
 end
