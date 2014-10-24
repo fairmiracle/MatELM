@@ -1,8 +1,8 @@
 function [TrainingTime, TestingTime, TrainingAccuracy, TestingAccuracy] = matelm_memory_mat(X_train, Y_train,X_test, Y_test,d1,d2, Elm_Type, NumberofHiddenNeurons, ActivationFunction,C)
 
 % Input:
-%in X_train, Y_train,X_test, Y_test, each row is a sample
-%in X_train, Y_test,each row is  a cell contains image matrix
+% X_train, Y_train,X_test, Y_test, each row is a sample
+% X_train, Y_test,each row is a cell contains image matrix, with size d1xd2
 % Elm_Type              - 0 for regression; 1 for (both binary and multi-classes) classification
 % NumberofHiddenNeurons - Number of hidden neurons assigned to the ELM
 % ActivationFunction    - Type of activation function:
