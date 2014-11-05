@@ -28,7 +28,7 @@ function [TrainingTime, TestingTime, TrainingAccuracy, TestingAccuracy] = matelm
     %%%%    Original Authors:    MR QIN-YU ZHU AND DR GUANG-BIN HUANG
     %%%%    NANYANG TECHNOLOGICAL UNIVERSITY, SINGAPORE
     
-    %%%%    Refer to Bo Jia, Dong Li, Zhisong Pan, and Guyu Hu, " Two-dimensional Extreme Learning Machine," submitted to Mathematical Problems in Engineering, 2014
+    %%%%    Refer to Bo Jia, Dong Li, Zhisong Pan, and Guyu Hu, " Two-Dimensional Extreme Learning Machine," submitted to Mathematical Problems in Engineering, 2014
 
 %%%%%%%%%%% Macro definition
 REGRESSION=0;
@@ -90,9 +90,9 @@ U=rand(NumberofHiddenNeurons,d1)*2-1;
 V=rand(NumberofHiddenNeurons,d2)*2-1;
 BiasofHiddenNeurons=rand(NumberofHiddenNeurons,1);
 
-tempH = zeros(NumberofHiddenNeurons, NumberofTrainingData);      % The key difference with ELM, slow in Matlab due to the absent vectorization        
+tempH = zeros(NumberofHiddenNeurons, NumberofTrainingData);      % The key difference with ELM    
 for i = 1:NumberofTrainingData
-        tempH(:,i) =diag(U*X_train{i,1}*V');
+        tempH(:,i) =diag(U*X_train{i,1}*V');                                                        % Slow in Matlab due to the absent vectorization. In practice, we should avoid for loop if possible.
 end
 
 
